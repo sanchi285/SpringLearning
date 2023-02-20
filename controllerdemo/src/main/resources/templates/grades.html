@@ -115,7 +115,7 @@
           <th>Subject</th>
           <th>Score</th>
         </tr>
-        <tr>
+        <tr th:each="grade : ${grades}">
           <th th:text="${grade.name}"></th>
           <th th:text="${grade.sub}"></th>
           <th th:text="${grade.score}"></th>
