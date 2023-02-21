@@ -25,7 +25,7 @@ public class GradeController {
     public String submission(Model model,@RequestParam(required = false) String ID){
         System.out.println(ID);
         int idx = getGradeIndex(ID);
-        if(idx>=0){
+        if(idx!=Constants.NOT_FOUND){
             model.addAttribute("grade",student_grade.get(idx));
         }
         else{
@@ -38,7 +38,7 @@ public class GradeController {
     public String submitForm(Grade grade){
         //that empty id
         int v= getGradeIndex(grade.getId());
-        if(v==-1000){student_grade.add(grade);}
+        if(v==Constants.NOT_FOUND){student_grade.add(grade);}
         else{student_grade.set(v, grade);}
         System.out.println(grade);
         return "redirect:/grades";
@@ -49,6 +49,6 @@ public class GradeController {
             System.out.println(ID+" "+student_grade.get(i).getId());
             if(student_grade.get(i).getId().equals(ID)){return i;}
         }
-        return -1000;
+        return Constants.NOT_FOUND;
     }
 }
