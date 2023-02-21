@@ -39,4 +39,13 @@ public class Grade {
         this.score = score;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+            " name='" + getName() + "'" +
+            ", sub='" + getSub() + "'" +
+            ", score='" + getScore() + "'" +
+            "}";
+    }
+
 }

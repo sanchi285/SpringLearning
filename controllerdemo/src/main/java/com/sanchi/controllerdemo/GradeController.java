@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 
 
@@ -15,13 +16,21 @@ public class GradeController {
     boolean chk=false;
     @GetMapping("/grades")
     public String sayHello(Model model){
-        if(chk==false){
-        chk=true;
-        student_grade.add(new Grade("Harry","Potion","A+"));
-        student_grade.add(new Grade("Sanchi","Dark art","A++"));
-        student_grade.add(new Grade("Ron","chess","A"));
-        }
         model.addAttribute("grades",student_grade);
         return "grades";
     }
+
+    @GetMapping("/form")
+    public String submission(Model model){
+        model.addAttribute("grade",new Grade());
+        return "form";
+    }
+
+    @PostMapping("/handleSubmit")
+    public String submitForm(Grade grade){
+        student_grade.add(grade);
+        System.out.println(grade);
+        return "redirect:/grades";
+    }
+
 }
