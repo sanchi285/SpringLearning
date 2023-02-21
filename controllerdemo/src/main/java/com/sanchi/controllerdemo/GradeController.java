@@ -36,7 +36,9 @@ public class GradeController {
 
     @PostMapping("/handleSubmit")
     public String submitForm(Grade grade){
-        student_grade.add(grade);
+        int v= getGradeIndex(grade.getName());
+        if(v==-1000){student_grade.add(grade);}
+        else{student_grade.set(v, grade);}
         System.out.println(grade);
         return "redirect:/grades";
     }
