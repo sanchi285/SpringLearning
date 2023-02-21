@@ -119,6 +119,7 @@
           <th th:text="${grade.name}"></th>
           <th th:text="${grade.sub}"></th>
           <th th:text="${grade.score}"></th>
+          <td><a role="button" class="update" th:href="@{/(name = ${grade.name})}">Updates</a></td>
         </tr>
       </table>
     </div>
