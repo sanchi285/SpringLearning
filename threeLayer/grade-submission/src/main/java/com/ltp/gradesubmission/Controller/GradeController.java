@@ -14,43 +14,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ltp.gradesubmission.repository.GradeRepository;
 import com.ltp.gradesubmission.*;
+import com.ltp.gradesubmission.Service.Gradeservice;
 
 @Controller
 public class GradeController {
 
-    GradeRepository graderepository  = new GradeRepository();
-
+    
+    Gradeservice gradeservice = new Gradeservice();
     @GetMapping("/")
     public String getForm(Model model, @RequestParam(required = false) String id) {
-        int index = getGradeIndex(id);
-        model.addAttribute("grade", index == Constants.NOT_FOUND ? new Grade() : graderepository.getGrade(index));
+        model.addAttribute("grade", gradeservice.getGradeById(id));
         return "form";
     }
 
     @PostMapping("/handleSubmit")
     public String submitForm(@Valid Grade grade, BindingResult result) {
         if (result.hasErrors()) return "form";
-
-        int index = getGradeIndex(grade.getId());
-        if (index == Constants.NOT_FOUND) {
-            graderepository.addGrade(grade);
-        } else {
-            graderepository.updateGrade(grade, index);
-        }
+        gradeservice.submitGrade(grade);
         return "redirect:/grades";
     }
 
     @GetMapping("/grades")
     public String getGrades(Model model) {
-        model.addAttribute("grades", graderepository.getGrades());
+        model.addAttribute("grades",gradeservice.getGrades());
         return "grades";
     }
 
-    public int getGradeIndex(String id) {
-        for (int i = 0; i < graderepository.getGrades().size(); i++) {
-            if (graderepository.getGrades().get(i).getId().equals(id)) return i;
-        }
-        return Constants.NOT_FOUND;
-    }
 
 }
