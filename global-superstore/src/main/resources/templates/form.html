@@ -10,9 +10,9 @@
         <div class="container">    
             <h2> Global Superstore </h2>
             <form method="post" th:object="${inventory}" th:action="@{/handleSubmission}">
-                <select class="select">
+                <select class="select" th:field="*{category}">
                     <option value="" disabled selected>Select your option</option>
-                    <option th:each = "item:${items}" th:text="${item}" th:value="*{category}"></option>
+                    <option th:each = "item:${items}" th:text="${item}" th:value="${item}"></option>
                 </select>
                 <input type="text" placeholder="Name" th:field="*{productName}">
                 <input class="half" type="text" placeholder="Price" th:field="*{price}">
