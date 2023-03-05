@@ -11,6 +11,7 @@
             <h2> Global Superstore </h2>
             <form method="post">
                 <select class="select">
+                    <option value="" disabled selected>Select your option</option>
                     <option th:each = "item:${items}" th:text="${item}"></option>
                 </select>
                 <input type="text" placeholder="Name">
