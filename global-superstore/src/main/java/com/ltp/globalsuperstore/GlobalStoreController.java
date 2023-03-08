@@ -4,12 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class GlobalStoreController {
@@ -47,12 +46,16 @@ public class GlobalStoreController {
 
    // @PostMapping("/handleSubmission")
    @PostMapping("/handleSubmission") 
-   public String submitForm(Inventory inventory){
+   public String submitForm(Inventory inventory, RedirectAttributes redirectAtt){
 
         int idx = findId(inventory.getId());
         
         if(idx>=0){inventoryList.set(idx, inventory);}    
-        else{inventoryList.add(inventory);}
+        else{
+            inventoryList.add(inventory);
+            //need to add flash Arrtibute
+            redirectAtt.addFlashAttribute("status", Constants.SUCCESS);
+           }
         
         System.out.println(inventory.getProductName());
         return "redirect:/inventory";    
