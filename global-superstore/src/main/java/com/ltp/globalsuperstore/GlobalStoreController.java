@@ -48,7 +48,12 @@ public class GlobalStoreController {
    // @PostMapping("/handleSubmission")
    @PostMapping("/handleSubmission") 
    public String submitForm(Inventory inventory){
-        inventoryList.add(inventory);
+
+        int idx = findId(inventory.getId());
+        
+        if(idx>=0){inventoryList.set(idx, inventory);}    
+        else{inventoryList.add(inventory);}
+        
         System.out.println(inventory.getProductName());
         return "redirect:/inventory";    
     } 
