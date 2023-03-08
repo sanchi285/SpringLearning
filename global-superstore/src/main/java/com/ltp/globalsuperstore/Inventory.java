@@ -1,7 +1,10 @@
 package com.ltp.globalsuperstore;
 
+import java.util.UUID;
+
 public class Inventory {
 
+    private String Id;
     private String category;
     private String productName;
     private String price;
@@ -9,6 +12,7 @@ public class Inventory {
     private String orderDate;
 
     public Inventory() {
+        this.Id = UUID.randomUUID().toString();
     }
 
     public Inventory(String category, String productName, String price, String discount, String orderDate) {
@@ -17,6 +21,14 @@ public class Inventory {
         this.price = price;
         this.discount = discount;
         this.orderDate = orderDate;
+    }
+
+    public String getId() {
+        return this.Id;
+    }
+
+    public void setId(String Id) {
+        this.Id = Id;
     }
 
     public String getCategory() {
