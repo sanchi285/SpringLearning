@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,8 +19,8 @@ import com.ltp.gradesubmission.Service.Gradeservice;
 @Controller
 public class GradeController {
 
-    
-    Gradeservice gradeservice = new Gradeservice();
+    @Autowired
+    Gradeservice gradeservice;
     @GetMapping("/")
     public String getForm(Model model, @RequestParam(required = false) String id) {
         model.addAttribute("grade", gradeservice.getGradeById(id));

@@ -1,9 +1,12 @@
 package com.ltp.gradesubmission.repository;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
 import com.ltp.gradesubmission.*;
 
-
+@Repository
 public class GradeRepository {
    private List<Grade> studentGrades = new ArrayList<>(); 
 
