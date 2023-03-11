@@ -1,4 +1,4 @@
-package com;
+package com.ltp.gradesubmission;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,7 +1,6 @@
 package com.ltp.globalsuperstore;
-import java.util.ArrayList;
-import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -13,34 +12,24 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class GlobalStoreController {
     
-    List <Inventory> inventoryList = new ArrayList<>();
+   
+    StoreService ss;
 
-    public int findId(String id){
-        for(int i=0;i<inventoryList.size();i++){
-            if(inventoryList.get(i).getId().equals(id)){return i;}
-        }
-        return -100;
+    public GlobalStoreController(StoreService ss){
+        this.ss =ss;
     }
 
     @GetMapping("/")
     public String formShow(Model model, @RequestParam(required = false) String id){
        // Constants constants = new Constants();
        model.addAttribute("items", Constants.CATEGORIES);
-
-       int idx =  findId(id);
-
-       if(idx>=0){
-        model.addAttribute("inventory", inventoryList.get(idx)); 
-       }
-       else{
-        model.addAttribute("inventory", new Inventory());
-       }
+       model.addAttribute("inventory", ss.getItemFromId(id));
         return "form";
     }
 
     @GetMapping("/inventory")
     public String ShowInventory(Model model){
-        model.addAttribute("inventoryList", inventoryList);
+        model.addAttribute("inventoryList", ss.getItems());
         return "inventory";
     }
 
@@ -48,11 +37,11 @@ public class GlobalStoreController {
    @PostMapping("/handleSubmission") 
    public String submitForm(Inventory inventory, RedirectAttributes redirectAtt){
 
-        int idx = findId(inventory.getId());
+        int idx = ss.findId(inventory.getId());
         
-        if(idx>=0){inventoryList.set(idx, inventory);}    
+        if(idx>=0){ss.updateItem(idx, inventory);}    
         else{
-            inventoryList.add(inventory);
+            ss.addItem(inventory);
             //need to add flash Arrtibute
             redirectAtt.addFlashAttribute("status", Constants.SUCCESS);
            }
