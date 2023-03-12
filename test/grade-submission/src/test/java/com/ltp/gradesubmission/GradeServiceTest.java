@@ -1,6 +1,7 @@
 package com.ltp.gradesubmission;
 
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 import java.lang.reflect.Array;
 import com.ltp.gradesubmission.pojo.Grade;
@@ -54,7 +55,20 @@ public class GradeServiceTest {
 
         assertEquals(0,valid);
         assertEquals(Constants.NOT_FOUND,notvalid);
-      
+    }
+
+    @Test
+    public void addGradeTest(){
+        Grade grade = new Grade("Harry", "Potions", "C-");
+        List <Grade> list = new ArrayList<Grade>();
+        list.add(grade);
+        when(gradeRepository.getGrades()).thenReturn(list);
+        when(gradeRepository.getGrade(0)).thenReturn(grade);
+
+
+        Grade newGrade  = new Grade("Gini","Defence","A+");
+        gradeService.submitGrade(newGrade);
+        verify(gradeRepository, times(1)).addGrade(newGrade);
 
     }
 
