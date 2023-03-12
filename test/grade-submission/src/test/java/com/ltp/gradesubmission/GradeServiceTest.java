@@ -65,10 +65,24 @@ public class GradeServiceTest {
         when(gradeRepository.getGrades()).thenReturn(list);
         when(gradeRepository.getGrade(0)).thenReturn(grade);
 
-
         Grade newGrade  = new Grade("Gini","Defence","A+");
         gradeService.submitGrade(newGrade);
         verify(gradeRepository, times(1)).addGrade(newGrade);
+
+    }
+
+
+    @Test
+    public void updateGradeTest(){
+        Grade grade = new Grade("Harry", "Potions", "C-");
+        List <Grade> list = new ArrayList<Grade>();
+        list.add(grade);
+        when(gradeRepository.getGrades()).thenReturn(list);
+        when(gradeRepository.getGrade(0)).thenReturn(grade);
+
+        grade.setScore("A-");
+        gradeService.submitGrade(grade);
+        verify(gradeRepository, times(1)).updateGrade(grade,0);
 
     }
 
