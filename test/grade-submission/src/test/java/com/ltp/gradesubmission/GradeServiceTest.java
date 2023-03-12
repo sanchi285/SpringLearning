@@ -13,6 +13,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.*;
 import com.ltp.gradesubmission.repository.GradeRepository;
 import com.ltp.gradesubmission.service.GradeService;
+import com.ltp.gradesubmission.Constants;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GradeServiceTest {
@@ -25,8 +26,6 @@ public class GradeServiceTest {
 
     @Test
     public void getGradesFromRepoTest(){
-
-
         List <Grade> list = new ArrayList<Grade>();
         list.add(  new Grade("Harry", "Potions", "C-"));
         list.add(  new Grade("Ron", "Chess", "A-"));
@@ -39,5 +38,24 @@ public class GradeServiceTest {
 
     }
 
-    
+    @Test
+    public void gradeIndexTest(){
+        Grade grade = new Grade("Harry", "Potions", "C-");
+        List <Grade> list = new ArrayList<Grade>();
+        list.add(grade);
+        
+        when(gradeRepository.getGrades()).thenReturn(list);
+        when(gradeRepository.getGrade(0)).thenReturn(grade);
+
+        List <Grade> result = gradeService.getGrades();
+
+        int valid =  gradeService.getGradeIndex(result.get(0).getId());
+        int notvalid =  gradeService.getGradeIndex("786");
+
+        assertEquals(0,valid);
+        assertEquals(Constants.NOT_FOUND,notvalid);
+      
+
+    }
+
 }
