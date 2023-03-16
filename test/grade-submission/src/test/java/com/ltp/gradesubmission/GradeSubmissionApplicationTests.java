@@ -47,4 +47,16 @@ class GradeSubmissionApplicationTests {
 			.andExpect(redirectedUrl("/grades"));
 	}
 
+	@Test
+	public void testUnsuccessfulSubmission() throws Exception{
+		RequestBuilder request  = MockMvcRequestBuilders.post("/handleSubmit")
+								  .param("name","   ")
+								  .param("subject", " ")
+								  .param("score","K+");
+								  
+		mockMvc.perform(request)
+			.andExpect(status().is2xxSuccessful())
+			.andExpect(view().name("form"));
+	}
+
 }
