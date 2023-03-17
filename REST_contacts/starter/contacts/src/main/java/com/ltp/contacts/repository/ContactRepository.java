@@ -12,10 +12,10 @@ import com.ltp.contacts.pojo.Contact;
 public class ContactRepository {
     
     private List<Contact> contacts = Arrays.asList(
-        new Contact("123","Ram","0998"),
-        new Contact("231","Rahim","1231"),
-        new Contact("890","Jhon","897"),
-        new Contact("876","Kafil","3212")
+        new Contact("123","Ram","099898"),
+        new Contact("231","Rahim","129831"),
+        new Contact("890","Jhon","893217"),
+        new Contact("876","Kafil","3213212")
     );
 
     public List<Contact> getContacts() {
