@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +32,12 @@ public class ContactController {
         contactService.saveContact(contact);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
+    
+    @PutMapping("/contact/{id}")
+    public ResponseEntity<HttpStatus> updateContact(@PathVariable String id,@RequestBody Contact contact){
+        contactService.upadateContact(id, contact);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 
 }
