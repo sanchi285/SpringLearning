@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ltp.contacts.pojo.Contact;
 import com.ltp.contacts.service.ContactService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.models.annotations.OpenAPI30;
 
 @RestController
 public class ContactController {
@@ -27,6 +29,7 @@ public class ContactController {
     private ContactService contactService;
 
     @Tag(name="Section one")
+    @Operation(summary="Get Contact",description = "It will get all contact")
     @GetMapping("/contact/all")
     public ResponseEntity<List<Contact>> getAllContact(){
         List<Contact> contacts =  contactService.getAllContact();
@@ -34,6 +37,7 @@ public class ContactController {
     }
 
     @Tag(name="Section one")
+    @Operation(summary="Get Contact by Id",description = "It will bring a specific contact")
     @GetMapping("/contact/{id}")
     public ResponseEntity<Contact> getContact(@PathVariable String id){
         Contact contact = contactService.getContactById(id); 
