@@ -18,37 +18,42 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ltp.contacts.pojo.Contact;
 import com.ltp.contacts.service.ContactService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 public class ContactController {
     
     @Autowired
     private ContactService contactService;
 
+    @Tag(name="Section one")
     @GetMapping("/contact/all")
     public ResponseEntity<List<Contact>> getAllContact(){
         List<Contact> contacts =  contactService.getAllContact();
         return new ResponseEntity<>(contacts,HttpStatus.OK);
     }
 
-
+    @Tag(name="Section one")
     @GetMapping("/contact/{id}")
     public ResponseEntity<Contact> getContact(@PathVariable String id){
         Contact contact = contactService.getContactById(id); 
         return new ResponseEntity<>(contact,HttpStatus.OK);
     }
 
+    @Tag(name="Section two")
     @PostMapping("/contact")
     public ResponseEntity<HttpStatus> createContact(@RequestBody Contact contact){
         contactService.saveContact(contact);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     
+    @Tag(name="Section two")
     @PutMapping("/contact/{id}")
     public ResponseEntity<HttpStatus> updateContact(@PathVariable String id,@RequestBody Contact contact){
         contactService.upadateContact(id, contact);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    @Tag(name="Section three")
     @DeleteMapping("/contact/{id}")
     public ResponseEntity<HttpStatus> deleteContact(@PathVariable String id){
         contactService.deleteContact(id);
