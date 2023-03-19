@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +15,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import io.swagger.v3.oas.annotations.media.*;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
+import com.ltp.contacts.error.ErrorResponse;
 import com.ltp.contacts.pojo.Contact;
 import com.ltp.contacts.service.ContactService;
 
@@ -30,7 +35,9 @@ public class ContactController {
 
     @Tag(name="Section one")
     @Operation(summary="Get Contact",description = "It will get all contact")
-    @GetMapping("/contact/all")
+    @ApiResponse(responseCode = "200", description = "Successful retrieval of contacts", content = @Content(array = @ArraySchema(schema = @Schema(implementation = Contact.class))))
+    @GetMapping(value="/contact/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    
     public ResponseEntity<List<Contact>> getAllContact(){
         List<Contact> contacts =  contactService.getAllContact();
         return new ResponseEntity<>(contacts,HttpStatus.OK);
@@ -38,7 +45,11 @@ public class ContactController {
 
     @Tag(name="Section one")
     @Operation(summary="Get Contact by Id",description = "It will bring a specific contact")
-    @GetMapping("/contact/{id}")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "404", description = "***Be careful it is learning purpose only", content = @Content(schema = @Schema(implementation = Contact.class))),
+        @ApiResponse(responseCode = "200", description = "Successful retrieval of contact", content = @Content(schema = @Schema(implementation = Contact.class))),
+    })  
+    @GetMapping(value = "/contact/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Contact> getContact(@PathVariable String id){
         Contact contact = contactService.getContactById(id); 
         return new ResponseEntity<>(contact,HttpStatus.OK);
