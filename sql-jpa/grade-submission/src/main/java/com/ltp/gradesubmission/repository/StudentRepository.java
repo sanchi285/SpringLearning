@@ -6,5 +6,4 @@ import com.ltp.gradesubmission.entity.Student;
 
 public interface StudentRepository extends CrudRepository<Student,Long>{
     //read update and delete studfent entity
-    
 }

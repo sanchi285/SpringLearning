@@ -30,3 +30,6 @@
  
  
  ./mvnw clean spring-boot:run
+ 
+ Select * From Student;
+ Insert Into Student Values('2','1232-10-12','Panday');
