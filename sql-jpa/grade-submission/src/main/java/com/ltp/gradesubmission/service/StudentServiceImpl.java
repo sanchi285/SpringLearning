@@ -22,11 +22,12 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student saveStudent(Student student) {
         studentRepository.save(student);
-        return null;
+        return student;
     }
 
     @Override
-    public void deleteStudent(Long id) {        
+    public void deleteStudent(Long id) {   
+        studentRepository.deleteById(id);     
     }
 
     @Override
