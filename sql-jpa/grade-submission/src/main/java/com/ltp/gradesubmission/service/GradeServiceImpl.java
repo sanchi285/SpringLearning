@@ -11,12 +11,12 @@ import com.ltp.gradesubmission.entity.Student;
 import com.ltp.gradesubmission.repository.GradeRepository;
 import com.ltp.gradesubmission.repository.StudentRepository;
 
+import lombok.AllArgsConstructor;
+@AllArgsConstructor
 @Service
 public class GradeServiceImpl implements GradeService {
     
-    @Autowired
     GradeRepository gradeRepository;
-    @Autowired
     StudentRepository studentRepository;
 
     @Override

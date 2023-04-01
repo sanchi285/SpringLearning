@@ -9,10 +9,11 @@ import com.ltp.gradesubmission.entity.Grade;
 import com.ltp.gradesubmission.entity.Student;
 import com.ltp.gradesubmission.repository.StudentRepository;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Service
 public class StudentServiceImpl implements StudentService {
-
-    @Autowired
     StudentRepository studentRepository;
 
     @Override
