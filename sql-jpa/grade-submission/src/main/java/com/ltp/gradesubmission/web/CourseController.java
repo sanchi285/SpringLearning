@@ -13,29 +13,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ltp.gradesubmission.entity.Course;
+import com.ltp.gradesubmission.service.CourseServiceImpl;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @RestController
 @RequestMapping("/course")
 public class CourseController {
 
+    CourseServiceImpl courseServiceImpl;
+
     @GetMapping("/{id}")
     public ResponseEntity<Course> getCourse(@PathVariable Long id) {
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(courseServiceImpl.getCourse(id),HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Course> saveCourse(@RequestBody Course course) {
-        return new ResponseEntity<>(course, HttpStatus.CREATED);
+        return new ResponseEntity<>(courseServiceImpl.saveCourse(course), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteCourse(@PathVariable Long id) {
+        courseServiceImpl.deleteCourse(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<Course>> getCourses() {
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(courseServiceImpl.getCourses(),HttpStatus.OK);
     }
 
 }
