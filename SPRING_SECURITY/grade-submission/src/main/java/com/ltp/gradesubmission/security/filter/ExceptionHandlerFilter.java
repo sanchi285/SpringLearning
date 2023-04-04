@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.ltp.gradesubmission.exception.EntityNotFoundException;
+
 public class ExceptionHandlerFilter extends OncePerRequestFilter {
 
     @Override
@@ -18,7 +20,14 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
         // TODO Auto-generated method stub
         try{
             filterChain.doFilter(request, response);
-        }catch(RuntimeException e){
+        }
+        catch(EntityNotFoundException e){
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.getWriter().write("User Name not found");
+            response.getWriter().flush();
+
+        }
+        catch(RuntimeException e){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
 
