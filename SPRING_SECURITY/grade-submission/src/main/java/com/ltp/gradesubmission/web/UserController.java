@@ -15,6 +15,7 @@ import com.ltp.gradesubmission.entity.User;
 import com.ltp.gradesubmission.service.UserService;
 
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 
 @AllArgsConstructor
 @RestController
@@ -25,8 +26,9 @@ public class UserController {
     UserService userService;
 
 	@GetMapping("/{id}")
-	public ResponseEntity<User> findById(@PathVariable Long id) {
-		return new ResponseEntity<>(HttpStatus.OK);
+	public ResponseEntity<String> findById(@PathVariable Long id) {
+		String user = userService.getUser(id).getUsername();
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
     @PostMapping("/register")
