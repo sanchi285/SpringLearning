@@ -66,4 +66,10 @@ public class StudentController {
         return student;
     }
 
+    //spring boot api delete request
+    @DeleteMapping("students/{id}/delete")
+    public String deleteStudeent(@PathVariable("id") int studnetId){
+        System.out.println(studnetId);
+        return "Student Delete success full";
+    }
 }
