@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//@requestMapping for base url
 @RestController
+@RequestMapping("students")
 public class StudentController {
 
     @GetMapping("/student")
@@ -17,7 +19,7 @@ public class StudentController {
        // return new ResponseEntity<>(student, HttpStatus.OK);
         return ResponseEntity.ok().header("custome_header","ramess").body(student);
     }
-    @GetMapping("/students")
+    @GetMapping("")
     public ResponseEntity<List<Student>> getStudents(){
         List <Student> students = new ArrayList<>();
         students.add(new Student(1,"ramesh","poddefr"));
@@ -39,7 +41,7 @@ public class StudentController {
     //Spring Boot rest Api with request Param
     //localhost:9090/students?id=1
     //localhost:9090/students?id=1&
-    @GetMapping("/students/query/")
+    @GetMapping("query/")
     public Student studrntRequestVariable(@RequestParam int id,
                                           @RequestParam String firstname,
                                           @RequestParam String lastname){
@@ -60,7 +62,7 @@ public class StudentController {
     }
 
     //spring rest api put request
-    @PutMapping("students/{id}/update")
+    @PutMapping("{id}/update")
     //@ResponseStatus(h)
     public Student updateStudent(@RequestBody Student student, @PathVariable("id") int studnetId){
         System.out.println(student.getFirstName());
@@ -69,7 +71,7 @@ public class StudentController {
     }
 
     //spring boot api delete request
-    @DeleteMapping("students/{id}/delete")
+    @DeleteMapping("{id}/delete")
     public String deleteStudeent(@PathVariable("id") int studnetId){
         System.out.println(studnetId);
         return "Student Delete success full";
