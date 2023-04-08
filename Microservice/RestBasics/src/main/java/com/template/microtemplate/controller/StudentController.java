@@ -3,6 +3,7 @@ package com.template.microtemplate.controller;
 import com.template.microtemplate.bean.Student;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -33,6 +34,16 @@ public class StudentController {
                                        @PathVariable String first_name,
                                        @PathVariable String last_name){
         return new Student(studentId,first_name, last_name);
+    }
+
+    //Spring Boot rest Api with request Param
+    //localhost:9090/students?id=1
+    //localhost:9090/students?id=1&
+    @GetMapping("/students/query/")
+    public Student studrntRequestVariable(@RequestParam int id,
+                                          @RequestParam String firstname,
+                                          @RequestParam String lastname){
+        return new Student(id,firstname,lastname);
     }
 
 }
