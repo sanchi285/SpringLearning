@@ -2,6 +2,7 @@ package com.template.microtemplate.controller;
 
 import com.template.microtemplate.bean.Student;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -23,6 +24,15 @@ public class StudentController {
         students.add(new Student(3,"Victor","poddefr"));
         students.add(new Student(4,"ramesh","Das"));
         return  students;
+    }
+
+    //Spring boot rest Api with pathn variable
+    //{id} URI template variable
+    @GetMapping("student/{id}/{first_name}/{last_name}")
+    public Student studentPathVariable(@PathVariable("id") int studentId,
+                                       @PathVariable String first_name,
+                                       @PathVariable String last_name){
+        return new Student(studentId,first_name, last_name);
     }
 
 }
