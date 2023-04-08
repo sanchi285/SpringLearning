@@ -2,6 +2,7 @@ package com.template.microtemplate.controller;
 
 import com.template.microtemplate.bean.Student;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -11,18 +12,19 @@ import java.util.List;
 public class StudentController {
 
     @GetMapping("/student")
-    public Student getStudent(){
+    public ResponseEntity<Student> getStudent(){
         Student student = new Student(1,"Ramesh","Podder");
-        return student;
+       // return new ResponseEntity<>(student, HttpStatus.OK);
+        return ResponseEntity.ok().header("custome_header","ramess").body(student);
     }
     @GetMapping("/students")
-    public List<Student> getStudents(){
+    public ResponseEntity<List<Student>> getStudents(){
         List <Student> students = new ArrayList<>();
         students.add(new Student(1,"ramesh","poddefr"));
         students.add(new Student(2,"ramesh","pal"));
         students.add(new Student(3,"Victor","poddefr"));
         students.add(new Student(4,"ramesh","Das"));
-        return  students;
+        return  new ResponseEntity<>(students,HttpStatus.OK);
     }
 
     //Spring boot rest Api with pathn variable
