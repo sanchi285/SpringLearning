@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/users")
@@ -27,4 +29,23 @@ public class UserController {
         return new ResponseEntity<>(user,HttpStatus.OK);
     }
 
+    //get all user controlle
+    @GetMapping
+    public ResponseEntity<List<User>> getAllUsers(){
+        List<User> users = userService.getAllUser();
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<User> updateUser(@PathVariable("id") Long userId, @RequestBody User user){
+       user.setId(userId);
+       User updated = userService.updateUser(user);
+       return new ResponseEntity<>(updated,HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable("id") Long userId){
+        userService.deleteUser(userId);
+        return new ResponseEntity<>("Successfully deleted",HttpStatus.OK);
+    }
 }

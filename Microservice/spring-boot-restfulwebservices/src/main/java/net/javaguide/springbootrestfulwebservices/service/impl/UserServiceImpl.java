@@ -6,6 +6,7 @@ import net.javaguide.springbootrestfulwebservices.repository.UserRepository;
 import net.javaguide.springbootrestfulwebservices.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,4 +25,27 @@ public class UserServiceImpl implements UserService {
         Optional<User>  optinalUser =  userRepository.findById(userId);
         return optinalUser.get();
     }
+
+    @Override
+    public List<User> getAllUser() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User updateUser(User user) {
+
+        User exixtingUser  = userRepository.findById(user.getId()).get();
+        exixtingUser.setFirstName(user.getFirstName());
+        exixtingUser.setLastName(user.getLastName());
+        exixtingUser.setEmail(user.getEmail());
+        User updated = userRepository.save(exixtingUser);
+        return updated;
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+       userRepository.deleteById(id);
+    }
+
+
 }
