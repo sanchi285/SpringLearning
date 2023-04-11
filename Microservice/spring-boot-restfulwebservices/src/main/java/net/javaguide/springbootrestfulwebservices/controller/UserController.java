@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import net.javaguide.springbootrestfulwebservices.dto.UserDto;
 import net.javaguide.springbootrestfulwebservices.entity.User;
 import net.javaguide.springbootrestfulwebservices.service.UserService;
+import org.apache.catalina.UserDatabase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -38,9 +39,9 @@ public class UserController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") Long userId, @RequestBody User user){
-       user.setId(userId);
-       User updated = userService.updateUser(user);
+    public ResponseEntity<UserDto> updateUser(@PathVariable("id") Long userId, @RequestBody UserDto userdto){
+       userdto.setId(userId);
+       UserDto updated = userService.updateUser(userdto);
        return new ResponseEntity<>(updated,HttpStatus.ACCEPTED);
     }
 
