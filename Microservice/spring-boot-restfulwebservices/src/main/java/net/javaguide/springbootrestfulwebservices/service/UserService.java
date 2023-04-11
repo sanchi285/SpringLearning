@@ -1,11 +1,12 @@
 package net.javaguide.springbootrestfulwebservices.service;
 
+import net.javaguide.springbootrestfulwebservices.dto.UserDto;
 import net.javaguide.springbootrestfulwebservices.entity.User;
 
 import java.util.List;
 
 public interface UserService {
-    User createUser(User user);
+    UserDto createUser(UserDto user);
     User getUserById(Long userId);
 
     List<User> getAllUser();

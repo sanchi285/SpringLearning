@@ -1,6 +1,7 @@
 package net.javaguide.springbootrestfulwebservices.service.impl;
 
 import lombok.AllArgsConstructor;
+import net.javaguide.springbootrestfulwebservices.dto.UserDto;
 import net.javaguide.springbootrestfulwebservices.entity.User;
 import net.javaguide.springbootrestfulwebservices.repository.UserRepository;
 import net.javaguide.springbootrestfulwebservices.service.UserService;
@@ -16,8 +17,24 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public User createUser(User user) {
-        return userRepository.save(user);
+    public UserDto createUser(UserDto userdto) {
+        //convert user Dto in to user entity
+        User user = new User(
+                userdto.getId(),
+                userdto.getFirstName(),
+                userdto.getLastName(),
+                userdto.getEmail()
+                );
+        User savedUser = userRepository.save(user);
+        //Convert JPA entity to user Dto
+        UserDto userDto = new UserDto(
+                savedUser.getId(),
+                savedUser.getFirstName(),
+                savedUser.getLastName(),
+                savedUser.getEmail()
+        );
+
+        return userDto;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package net.javaguide.springbootrestfulwebservices.controller;
 
 import lombok.AllArgsConstructor;
+import net.javaguide.springbootrestfulwebservices.dto.UserDto;
 import net.javaguide.springbootrestfulwebservices.entity.User;
 import net.javaguide.springbootrestfulwebservices.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -19,8 +20,8 @@ public class UserController {
 
     //build create user Rest Api
     @PostMapping()
-    public ResponseEntity<User> createUser(@RequestBody User user){
-        User savedUser =  userService.createUser(user);
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user){
+        UserDto savedUser =  userService.createUser(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
     @GetMapping("{id}")
