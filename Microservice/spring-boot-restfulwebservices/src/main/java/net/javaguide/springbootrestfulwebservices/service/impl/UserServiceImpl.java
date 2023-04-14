@@ -3,6 +3,7 @@ package net.javaguide.springbootrestfulwebservices.service.impl;
 import lombok.AllArgsConstructor;
 import net.javaguide.springbootrestfulwebservices.dto.UserDto;
 import net.javaguide.springbootrestfulwebservices.entity.User;
+import net.javaguide.springbootrestfulwebservices.exception.EmailAlreadyExistsException;
 import net.javaguide.springbootrestfulwebservices.exception.ResourceNotFoundException;
 import net.javaguide.springbootrestfulwebservices.mapper.AutoUserMapper;
 import net.javaguide.springbootrestfulwebservices.mapper.UserMapper;
@@ -27,6 +28,12 @@ public class UserServiceImpl implements UserService {
     public UserDto createUser(UserDto userdto) {
         //convert user Dto in to user entity
         //User user = UserMapper.mapToUser(userdto);
+        Optional<User> optionalUser = userRepository.findByEmail(userdto.getEmail());
+
+        if(optionalUser.isPresent()){
+            throw new EmailAlreadyExistsException("Email Already exist");
+        }
+
 
         User user = modelMapper.map(userdto,User.class);
 
