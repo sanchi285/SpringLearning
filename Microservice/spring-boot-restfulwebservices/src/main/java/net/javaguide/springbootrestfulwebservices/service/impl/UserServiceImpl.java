@@ -3,6 +3,7 @@ package net.javaguide.springbootrestfulwebservices.service.impl;
 import lombok.AllArgsConstructor;
 import net.javaguide.springbootrestfulwebservices.dto.UserDto;
 import net.javaguide.springbootrestfulwebservices.entity.User;
+import net.javaguide.springbootrestfulwebservices.exception.ResourceNotFoundException;
 import net.javaguide.springbootrestfulwebservices.mapper.AutoUserMapper;
 import net.javaguide.springbootrestfulwebservices.mapper.UserMapper;
 import net.javaguide.springbootrestfulwebservices.repository.UserRepository;
@@ -39,8 +40,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserById(Long userId) {
-        Optional<User>  optinalUser =  userRepository.findById(userId);
-        User user = optinalUser.get();
+        User user =  userRepository.findById(userId).orElseThrow(
+                ()->new ResourceNotFoundException("User","id",userId)
+        );
+
         //return UserMapper.mapToUserDto(user);
        // return modelMapper.map(user,UserDto.class);
         return AutoUserMapper.MAPPER.mapToUserDto(user);
@@ -64,7 +67,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto updateUser(UserDto userDto) {
 
-        User exixtingUser  = userRepository.findById(userDto.getId()).get();
+        User exixtingUser  = userRepository.findById(userDto.getId()).orElseThrow(
+                ()->new ResourceNotFoundException("User","id",userDto.getId())
+        );
         exixtingUser.setFirstName(userDto.getFirstName());
         exixtingUser.setLastName(userDto.getLastName());
         exixtingUser.setEmail(userDto.getEmail());
@@ -74,7 +79,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long id) {
-       userRepository.deleteById(id);
+        User exixtingUser  = userRepository.findById(id).orElseThrow(
+                ()->new ResourceNotFoundException("User","id",id)
+        );
+        userRepository.deleteById(id);
     }
 
 
