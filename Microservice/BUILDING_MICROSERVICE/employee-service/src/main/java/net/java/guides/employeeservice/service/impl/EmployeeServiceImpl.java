@@ -6,6 +6,7 @@ import net.java.guides.employeeservice.dto.DepartmentDto;
 import net.java.guides.employeeservice.dto.EmployeeDto;
 import net.java.guides.employeeservice.entity.Employee;
 import net.java.guides.employeeservice.repository.EmployeeRepository;
+import net.java.guides.employeeservice.service.APIClient;
 import net.java.guides.employeeservice.service.EmployeeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
     //private RestTemplate restTemplate;
-    private WebClient webClient;
+    //private WebClient webClient;
+    private APIClient apiClient;
     @Override
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
 
@@ -47,12 +49,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     public ApiResponseDto getEmployeeById(Long employeeId) {
         Employee employee = employeeRepository.findById(employeeId).get();
 
-        DepartmentDto departmentDto =webClient.get()
-                .uri("http://localhost:9090/api/departments/"+employee.getDepartmentCode())
-                .retrieve()
-                .bodyToMono(DepartmentDto.class)
-                .block();
+//        DepartmentDto departmentDto =webClient.get()
+//                .uri("http://localhost:9090/api/departments/"+employee.getDepartmentCode())
+//                .retrieve()
+//                .bodyToMono(DepartmentDto.class)
+//                .block();
 
+        DepartmentDto departmentDto = apiClient.getDepartment(employee.getDepartmentCode());
         EmployeeDto employeeDto = new EmployeeDto(
                 employee.getId(),
                 employee.getFirstName(),
