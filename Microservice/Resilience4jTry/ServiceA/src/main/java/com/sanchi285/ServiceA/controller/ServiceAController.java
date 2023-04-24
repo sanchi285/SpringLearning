@@ -24,7 +24,7 @@ public class ServiceAController {
         return restTemplate.getForObject(url,String.class);
     }
 
-    public String getServiceAFallback(){
+    public String getServiceAFallback(Exception e){
         return "This is a fallback method";
     }
 }
