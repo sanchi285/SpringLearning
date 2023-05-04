@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import net.java.guides.employeeservice.dto.ApiResponseDto;
 import net.java.guides.employeeservice.dto.DepartmentDto;
 import net.java.guides.employeeservice.dto.EmployeeDto;
+import net.java.guides.employeeservice.dto.OrganizationDto;
 import net.java.guides.employeeservice.entity.Employee;
 import net.java.guides.employeeservice.mapper.EmployeeMapper;
 import net.java.guides.employeeservice.repository.EmployeeRepository;
@@ -38,8 +39,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     @Override
-    //@CircuitBreaker(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartment")
-    @Retry(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartment")
+    @CircuitBreaker(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartment")
+    //@Retry(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartment")
     public ApiResponseDto getEmployeeById(Long employeeId) {
 
         LOGGER.info("inside get employee by id method");
@@ -53,12 +54,24 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .block();
 
    //   DepartmentDto departmentDto = apiClient.getDepartment(employee.getDepartmentCode());
+
+        OrganizationDto organizationDto = webClient.get()
+                .uri("http://localhost:8083/api/organizations/"+employee.getOrganizationCode())
+                .retrieve()
+                        .bodyToMono(OrganizationDto.class)
+                                .block();
+
+       // organizationDto = new OrganizationDto();
+       // organizationDto.setOrganizationName("Dabba placement");
+       // organizationDto.setOrganizationCode("vbg");
+
+        System.out.println("---------------"+organizationDto.getOrganizationCode());
         EmployeeDto employeeDto = EmployeeMapper.maptoEmployeeDto(employee);
 
         ApiResponseDto apiResponseDto =  new ApiResponseDto();
         apiResponseDto.setEmployeeDto(employeeDto);
         apiResponseDto.setDepartmentDto(departmentDto);
-
+        apiResponseDto.setOrganizationDto(organizationDto);
         return apiResponseDto;
     }
 
