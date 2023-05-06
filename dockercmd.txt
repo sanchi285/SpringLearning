@@ -1,0 +1,49 @@
+build image
+-----------------------------
+sudo docker build -t spring-boot-docker-demo .
+
+
+list of all Image
+-----------------------
+sudo docker images
+
+
+change tag
+----------------------
+udo docker build -t spring-boot-docker-demo:0.1.RELEASE .
+
+
+run a docker
+-------------------------
+sudo docker run -p 8089:8083 -d spring-boot-docker-demo
+
+
+show all running container
+----------------------------------
+sudo docker ps
+
+show the log of a process
+---------------------------------------
+sudo docker logs -f 5a6468c8ff92
+
+
+stop a docker process
+---------------------------------
+docker stop 5a6468c8ff92
+
+
+login
+-------------
+sudo docker login
+
+
+create repository
+-----------------------
+sudo docker tag spring-boot-docker-demo newtest151/spring-boot-docker-demo:0.1.RELEASE
+
+push
+---------------
+sudo docker push newtest151/spring-boot-docker-demo:0.1.RELEASE
+
+
+
