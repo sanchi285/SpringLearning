@@ -46,4 +46,45 @@ push
 sudo docker push newtest151/spring-boot-docker-demo:0.1.RELEASE
 
 
+mysql pull
+---------------
+sudo docker pull mysql:latest
+
+
+create dockernetwork
+------------------------
+sudo docker network create springboot-mysql-net
+
+
+check the network list
+------------------------------
+sudo docker network ls
+
+
+run mysql in docker network
+---------------------------------
+ sudo docker run --name mysqldb --network springboot-mysql-net -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=employeedb -d mysql
+
+//e environment variable
+
+access mysql in docker container
+--------------------------------------
+
+sudo docker exec -it 0891 bash
+
+//last 4 digit of a container id
+mysql -u root -p
+Enter password: 
+show databases;
+
+
+sudo docker run -d --network springboot-mysql-net --name mysql-container -e MYSQL_ROOT_PASSWORD=password mysql:latest
+
+
+
+
+
+
+
+
 
