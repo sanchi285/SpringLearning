@@ -1,0 +1,90 @@
+build image
+-----------------------------
+sudo docker build -t spring-boot-docker-demo .
+
+
+list of all Image
+-----------------------
+sudo docker images
+
+
+change tag
+----------------------
+udo docker build -t spring-boot-docker-demo:0.1.RELEASE .
+
+
+run a docker
+-------------------------
+sudo docker run -p 8089:8083 -d spring-boot-docker-demo
+
+
+show all running container
+----------------------------------
+sudo docker ps
+
+show the log of a process
+---------------------------------------
+sudo docker logs -f 5a6468c8ff92
+
+
+stop a docker process
+---------------------------------
+docker stop 5a6468c8ff92
+
+
+login
+-------------
+sudo docker login
+
+
+create repository
+-----------------------
+sudo docker tag spring-boot-docker-demo newtest151/spring-boot-docker-demo:0.1.RELEASE
+
+push
+---------------
+sudo docker push newtest151/spring-boot-docker-demo:0.1.RELEASE
+
+
+mysql pull
+---------------
+sudo docker pull mysql:latest
+
+
+create dockernetwork
+------------------------
+sudo docker network create springboot-mysql-net
+
+
+check the network list
+------------------------------
+sudo docker network ls
+
+
+run mysql in docker network
+---------------------------------
+ sudo docker run --name mysqldb --network springboot-mysql-net -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=employeedb -d mysql
+
+//e environment variable
+
+access mysql in docker container
+--------------------------------------
+
+sudo docker exec -it 0891 bash
+
+//last 4 digit of a container id
+mysql -u root -p
+Enter password: 
+show databases;
+
+
+sudo docker run -d --network springboot-mysql-net --name mysql-container -e MYSQL_ROOT_PASSWORD=password mysql:latest
+
+
+
+
+
+
+
+
+
