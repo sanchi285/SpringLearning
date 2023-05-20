@@ -1,5 +1,10 @@
 package net.javaguides.springbootrabbitmqtutorial.controller;
 
+/*
+sudo docker run --rm -it -p 15672:15672 -p 5672:5672 rabbitmq:3.11.0-management
+ */
+
+
 import net.javaguides.springbootrabbitmqtutorial.publisher.RabbitMQPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
