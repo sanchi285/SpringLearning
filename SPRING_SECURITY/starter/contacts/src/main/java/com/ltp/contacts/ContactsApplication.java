@@ -24,7 +24,7 @@ public class ContactsApplication implements CommandLineRunner {
 	 @Bean
 	 public BCryptPasswordEncoder bCryptPasswordEncoder() {
 	 	return new BCryptPasswordEncoder();
-	}
+	 }
 
 	@Override
 	public void run(String... args) throws Exception {
