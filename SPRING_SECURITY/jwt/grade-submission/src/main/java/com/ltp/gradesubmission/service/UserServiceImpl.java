@@ -33,5 +33,12 @@ public class UserServiceImpl implements UserService {
         if (entity.isPresent()) return entity.get();
         else throw new EntityNotFoundException(id, User.class);
     }
+
+    @Override
+    public User getUser(String user_name) {
+        Optional<User> user = userRepository.findByUsername(user_name); 
+        System.out.println(user.toString());
+        return unwrapUser(user, 404L);
+    }
     
 }
