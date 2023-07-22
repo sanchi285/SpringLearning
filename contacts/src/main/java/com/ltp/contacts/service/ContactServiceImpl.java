@@ -2,6 +2,7 @@ package com.ltp.contacts.service;
 
 import java.util.stream.IntStream;
 
+import com.ltp.contacts.pojo.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,4 +24,8 @@ public class ContactServiceImpl implements ContactService {
             .orElseThrow();
     }
 
+    @Override
+    public Contact getContactById(String id) {
+        return contactRepository.getContact(findIndexById(id));
+    }
 }
