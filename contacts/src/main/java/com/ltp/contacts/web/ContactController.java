@@ -9,11 +9,19 @@ import org.springframework.stereotype.Controller;
 import com.ltp.contacts.service.ContactService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class ContactController {
     
     @Autowired
     private ContactService contactService;
+
+    @GetMapping("/contact/all")
+    public ResponseEntity<List<Contact>> getAll(){
+        List<Contact> contacts  = contactService.getContacts();
+        return new ResponseEntity<>(contacts,HttpStatus.OK);
+    }
 
     @GetMapping("/contact/{id}")
     public ResponseEntity<Contact> getContact(@PathVariable String id){
@@ -24,8 +32,20 @@ public class ContactController {
     @PostMapping("/contact")
     public ResponseEntity<HttpStatus> postContact(@RequestBody Contact contact){
         contactService.saveContact(contact);
-        System.out.println(contact.getName());
+        System.out.println(contact.getId());
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping("/contact/{id}")
+    public ResponseEntity<Contact> updateContact(@PathVariable String id, @RequestBody Contact contact){
+        contactService.updateContact(id,contact);
+        return new ResponseEntity<>(contactService.getContactById(id),HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/contact/{id}")
+    public ResponseEntity<HttpStatus> deleteContact(@PathVariable String id){
+        contactService.deleteContact(id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
 }
