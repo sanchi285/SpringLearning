@@ -21,4 +21,10 @@ public class ContactController {
         return new ResponseEntity<>(contact, HttpStatus.OK);
     }
 
+    @PostMapping("/contact")
+    public ResponseEntity<HttpStatus> postContact(Contact contact){
+        contactService.saveContact(contact);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 }
