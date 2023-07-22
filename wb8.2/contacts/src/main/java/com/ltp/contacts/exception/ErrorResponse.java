@@ -1,22 +1,25 @@
 package com.ltp.contacts.exception;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ErrorResponse {
 
-    private String message;
+    private List<String> message = new ArrayList<>();
     private LocalDateTime localDateTime;
 
-    public ErrorResponse(String message) {
+    public ErrorResponse(List<String> message) {
         this.message = message;
-        this.localDateTime = localDateTime;
+        this.localDateTime = LocalDateTime.now();
     }
 
-    public String getMessage() {
+
+    public List<String> getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(List<String> message) {
         this.message = message;
     }
 
@@ -24,7 +27,5 @@ public class ErrorResponse {
         return localDateTime;
     }
 
-    public void setLocalDateTime(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
-    }
+
 }
