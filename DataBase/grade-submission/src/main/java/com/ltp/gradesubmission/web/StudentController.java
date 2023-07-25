@@ -25,7 +25,8 @@ public class StudentController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Student> getStudent(@PathVariable Long id) {
-        return new ResponseEntity<>(HttpStatus.OK);
+        Student st = studentService.getStudent(id);
+        return new ResponseEntity<>(st,HttpStatus.OK);
     }
 
     @PostMapping
