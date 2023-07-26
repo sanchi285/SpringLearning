@@ -37,6 +37,7 @@ public class GradeController {
     @PutMapping("/student/{studentId}/course/{courseId}")
     public ResponseEntity<Grade> updateGrade(@RequestBody Grade grade, @PathVariable Long studentId, @PathVariable Long courseId) {
        grade =  gradeService.saveGrade(grade,studentId,courseId);
+       System.out.println(grade.getStudent().getName());
        return new ResponseEntity<>(grade, HttpStatus.OK);
     }
 
@@ -47,7 +48,7 @@ public class GradeController {
 
     @GetMapping("/student/{studentId}")
     public ResponseEntity<List<Grade>> getStudentGrades(@PathVariable Long studentId) {
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(gradeService.getStudentGrades(studentId),HttpStatus.OK);
     }
 
     @GetMapping("/course/{courseId}")

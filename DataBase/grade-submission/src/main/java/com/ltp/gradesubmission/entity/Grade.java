@@ -17,6 +17,7 @@ import java.util.Optional;
 public class Grade {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
     @Column(name = "score", nullable = false)
