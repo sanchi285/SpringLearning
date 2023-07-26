@@ -23,8 +23,11 @@ public class GradeServiceImpl implements GradeService {
 
     @Override
     public Grade saveGrade(Grade grade, Long studentId, Long courseId) {
+        System.out.println("Calling it");
         Student student = studentRepository.findById(studentId).get();
+        System.out.println("I am Student");
         grade.setStudent(student);
+        System.out.println("Student Set");
         return gradeRepository.save(grade);
     }
 
