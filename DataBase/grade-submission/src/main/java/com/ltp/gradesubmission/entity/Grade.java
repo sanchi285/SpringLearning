@@ -1,9 +1,6 @@
 package com.ltp.gradesubmission.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Optional;
@@ -12,8 +9,8 @@ import java.util.Optional;
 @Table(name = "Grade")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Grade {
 
     @Id
