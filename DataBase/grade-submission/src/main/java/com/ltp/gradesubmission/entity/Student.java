@@ -1,5 +1,6 @@
 package com.ltp.gradesubmission.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -28,6 +29,7 @@ public class Student {
     @Column(name = "birth_Date",nullable = false)
     private LocalDate birthDate;
 
-    @OneToMany(mappedBy = "student")
+    @JsonIgnore
+    @OneToMany(mappedBy = "student" , cascade = CascadeType.ALL)
     private List<Grade> grades;
 }
