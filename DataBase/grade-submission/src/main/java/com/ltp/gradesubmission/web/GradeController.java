@@ -3,6 +3,7 @@ package com.ltp.gradesubmission.web;
 import java.util.List;
 
 import com.ltp.gradesubmission.service.GradeService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +20,10 @@ import com.ltp.gradesubmission.entity.Grade;
 
 @RestController
 @RequestMapping("/grade")
+@AllArgsConstructor
 public class GradeController {
 
-    @Autowired
+
     GradeService gradeService;
 
     @GetMapping("/student/{studentId}/course/{courseId}")
