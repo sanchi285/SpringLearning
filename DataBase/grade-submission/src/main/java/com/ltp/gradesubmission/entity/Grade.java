@@ -6,7 +6,9 @@ import javax.persistence.*;
 import java.util.Optional;
 
 @Entity
-@Table(name = "Grade")
+@Table(name = "Grade",uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"student_id","course_id"})
+})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -25,5 +27,8 @@ public class Grade {
     private Student student;
 
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "course_id", referencedColumnName = "id", nullable = false)
+    private Course course;
 
 }
