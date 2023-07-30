@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Student")
@@ -35,5 +36,5 @@ public class Student {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "students")
-    private List<Course> courses;
+    private Set<Course> courses;
 }

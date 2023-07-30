@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Course")
@@ -30,7 +31,7 @@ public class Course {
 
     @JsonIgnore
     @OneToMany(mappedBy = "course" , cascade = CascadeType.ALL)
-    private List<Grade> grades;
+    private Set<Grade> grades;
 
 
     @ManyToMany
