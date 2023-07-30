@@ -41,5 +41,10 @@ public class StudentServiceImpl implements StudentService {
         return null;
     }
 
+    static Student unwrapStudnet(Optional<Student> enity, Long id){
+        if(enity.isPresent()) return enity.get();
+        else throw new StudentNotFoundException(id);
+    }
+
 
 }
