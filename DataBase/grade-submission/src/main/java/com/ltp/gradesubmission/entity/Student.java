@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Student")
@@ -32,4 +33,8 @@ public class Student {
     @JsonIgnore
     @OneToMany(mappedBy = "student" , cascade = CascadeType.ALL)
     private List<Grade> grades;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "students")
+    private Set<Course> courses;
 }

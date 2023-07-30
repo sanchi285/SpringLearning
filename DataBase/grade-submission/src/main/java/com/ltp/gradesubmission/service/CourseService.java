@@ -9,4 +9,5 @@ public interface CourseService {
     Course saveCourse(Course course);
     void deleteCourse(Long id);
     List<Course> getCourses();
+    public Course addStudentToCourse( Long courseId,Long studentId);
 }
