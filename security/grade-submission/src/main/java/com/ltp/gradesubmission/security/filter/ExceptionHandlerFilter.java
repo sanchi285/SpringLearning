@@ -1,5 +1,6 @@
 package com.ltp.gradesubmission.security.filter;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -14,7 +15,12 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
         try {
             filterChain.doFilter(request,response);
         }
-        catch (Exception e){
+        catch (JWTVerificationException e){
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.getWriter().write("JWT NOT VALID");
+            response.getWriter().flush();
+        }
+        catch (RuntimeException e){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }

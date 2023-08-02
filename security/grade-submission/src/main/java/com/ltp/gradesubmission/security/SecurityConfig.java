@@ -3,6 +3,7 @@ package com.ltp.gradesubmission.security;
 
 import com.ltp.gradesubmission.security.filter.AuthenticationFilter;
 import com.ltp.gradesubmission.security.filter.ExceptionHandlerFilter;
+import com.ltp.gradesubmission.security.filter.JWTAuthorizationFilter;
 import com.ltp.gradesubmission.security.manager.CustomAuthenticationManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,8 +36,9 @@ public class SecurityConfig {
 
                 .antMatchers(HttpMethod.POST,SecurityConstants.REGISTER_PATH).permitAll()
                 .anyRequest().authenticated()
-            .and()
+                .and()
                 .addFilterBefore(new ExceptionHandlerFilter(),AuthenticationFilter.class)
+                .addFilterAfter(new JWTAuthorizationFilter(),AuthenticationFilter.class)
                 .addFilter(authenticationFilter)
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         return http.build();
