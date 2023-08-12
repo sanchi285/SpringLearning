@@ -27,7 +27,7 @@ public class FilterDemo4 {
         pl.add(new Product(2,"charger",700));
 
         pl.stream().filter(n->n.price>2500).forEach(pr -> System.out.println(pr.name));
-        
+
 
     }
 
